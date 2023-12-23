@@ -20,7 +20,7 @@ var users []User
 
 // get all users
 func GetUsersController(c echo.Context) error {
-  return c.JSON(http.StatusOK, map[string]interface{}{
+  return c.JSON(http.StatusOK, map[string]any{
     "messages": "success get all users",
     "users":    users,
   })
@@ -33,13 +33,13 @@ func GetUserController(c echo.Context) error {
 
 	for _, user := range users {
 		if user.Id == id {
-			return c.JSON(http.StatusOK, map[string]interface{}{
+			return c.JSON(http.StatusOK, map[string]any{
 			"messages": "success get all users",
 			"users":    user,
 			  })
 		}
 	}
-	return c.JSON(http.StatusNotFound, map[string]interface{}{
+	return c.JSON(http.StatusNotFound, map[string]any{
     "messages": "user not found",
   })
 }
@@ -51,12 +51,12 @@ func DeleteUserController(c echo.Context) error {
   for i, user := range users {
 	if user.Id == id {
 		users = append(users[:i], users[i+1:]...)
-		return c.JSON(http.StatusOK, map[string]interface{}{
+		return c.JSON(http.StatusOK, map[string]any{
         "messages": "success delete user",
       })
 	}
   }
-  return c.JSON(http.StatusNotFound, map[string]interface{}{
+  return c.JSON(http.StatusNotFound, map[string]any{
     "messages": "user not found",
   })
 }
@@ -69,13 +69,13 @@ func UpdateUserController(c echo.Context) error {
 	if user.Id == id {
 		c.Bind(&user)
 		users[i] = user
-		return c.JSON(http.StatusOK, map[string]interface{}{
+		return c.JSON(http.StatusOK, map[string]any{
         "messages": "success update user",
         "user":     user,
       })
 	}
   }
-  return c.JSON(http.StatusNotFound, map[string]interface{}{
+  return c.JSON(http.StatusNotFound, map[string]any{
     "messages": "user not found",
   })
 }
@@ -93,7 +93,7 @@ func CreateUserController(c echo.Context) error {
     user.Id = newId
   }
   users = append(users, user)
-  return c.JSON(http.StatusOK, map[string]interface{}{
+  return c.JSON(http.StatusOK, map[string]any{
     "messages": "success create user",
     "user":     user,
   })
